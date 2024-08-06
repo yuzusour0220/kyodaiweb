@@ -1,5 +1,5 @@
 import Header from "@/components/Header";
-import { Box } from "@chakra-ui/react";
+import { Box, VStack } from "@chakra-ui/react";
 import React from "react";
 
 type MainLayoutProps = {
@@ -9,8 +9,10 @@ type MainLayoutProps = {
 const MainLayout: React.FC<MainLayoutProps> = ({ children }) => {
   return (
     <>
-      <Header />
-      <Box>{children}</Box>
+      
+        <Header />
+        <Box as="main">{children}</Box>
+     
     </>
   );
 };
