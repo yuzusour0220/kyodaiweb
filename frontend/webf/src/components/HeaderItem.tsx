@@ -25,7 +25,7 @@ interface Schedule {
 
 const item_menu: MenuItems = {
   Race: [],  // これを動的に設定します
-  Others: ["OBさんへ", "Weather", "旧ウェブサイト","SNS", "部員用"],
+  Others: ["OBさんへ", "Weather", "旧ウェブサイト","SNS", "部員用", "Sponsor"],
   Blog: ["掲示板"],
   Member: ["4回生", "3回生", "2回生", "1回生", "OB"],
   About: ["About us", "ギャラリー"],
@@ -48,6 +48,7 @@ const subitem_domain: SubitemDomain = {
   "旧ウェブサイト": "oldweb",
   "SNS": "sns",
   "部員用": "login",
+  "Sponsor": "sponsor",
 };
 
 interface HeaderItemProps {
