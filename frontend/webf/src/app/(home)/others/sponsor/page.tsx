@@ -1,29 +1,22 @@
 "use client";
 
-import React from 'react'
-import { Box, Container, Heading, SimpleGrid, Text, Image, VStack, Link } from '@chakra-ui/react'
-import { motion, MotionProps } from 'framer-motion'
+import React, { useState, useEffect } from 'react'
+import { Box, Container, Heading, SimpleGrid, Text, Image, VStack, Link, Center } from '@chakra-ui/react'
+import { motion } from 'framer-motion'
+
+const MotionBox = motion(Box)
 
 interface Sponsor {
+  id: number;
   name: string;
   description: string;
-  website: string;
+  url: string;
+  photo: string;
 }
-
-const sponsors: Sponsor[] = [
-  {
-    name: "47 マーケティング YON-NANA",
-    description: "現代のビジネスのためのデジタルマーケティングソリューション",
-    website: "https://47marketing.jp/"
-  },
-  // ここに他のスポンサーを追加
-]
-
-const MotionBox = motion<MotionProps & React.ComponentProps<typeof Box>>(Box)
 
 interface SponsorCardProps extends Sponsor {}
 
-const SponsorCard: React.FC<SponsorCardProps> = ({ name, description, website }) => (
+const SponsorCard: React.FC<SponsorCardProps> = ({ name, description, url, photo }) => (
   <MotionBox
     borderWidth="1px"
     borderRadius="lg"
@@ -31,11 +24,13 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ name, description, website })
     whileHover={{ scale: 1.05 }}
     transition={{ duration: 0.3 }}
   >
-    <VStack spacing={4} align="stretch">
-      <Image src="/photos/sponsorlogo2.jpg" alt={name} />
+    <VStack spacing={4} align="stretch" marginLeft={1} marginRight={1}>
+        <Center>
+      <Image src={photo} alt={name} w="90%" />
+      </Center>
       <Heading size="md">{name}</Heading>
       <Text>{description}</Text>
-      <Link href={website} isExternal color="blue.500">
+      <Link href={url} isExternal color="blue.500">
         ウェブサイトはこちら
       </Link>
     </VStack>
@@ -43,20 +38,50 @@ const SponsorCard: React.FC<SponsorCardProps> = ({ name, description, website })
 )
 
 const SponsorsPage: React.FC = () => {
+  const [sponsors, setSponsors] = useState<Sponsor[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    const fetchSponsors = async () => {
+      try {
+        const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/sponsor/`);
+        if (!response.ok) {
+          throw new Error('Failed to fetch sponsors');
+        }
+        const data = await response.json();
+        setSponsors(data);
+        setLoading(false);
+      } catch (err) {
+        setError('Failed to load sponsors. Please try again later.');
+        setLoading(false);
+      }
+    };
+
+    fetchSponsors();
+  }, []);
+
+  if (loading) {
+    return <Box textAlign="center" py={16}>Loading...</Box>;
+  }
+
+  if (error) {
+    return <Box textAlign="center" py={16} color="red.500">{error}</Box>;
+  }
+
   return (
-    <Box bg="gray.50" minH="100vh">
+    <Box minH="100vh">
       <Container maxW="container.xl" py={16}>
         <VStack spacing={12} align="stretch">
           <Box textAlign="center">
             <Heading as="h1" size="2xl" mb={4}>
               スポンサー
             </Heading>
-            
           </Box>
 
           <SimpleGrid columns={{ base: 1, md: 2 }} spacing={10}>
-            {sponsors.map((sponsor, index) => (
-              <SponsorCard key={index} {...sponsor} />
+            {sponsors.map((sponsor) => (
+              <SponsorCard key={sponsor.id} {...sponsor} />
             ))}
           </SimpleGrid>
 

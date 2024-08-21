@@ -81,6 +81,8 @@ urlpatterns = [
     path("api/instashinkan/", api_views.InstaShinkanViewSet.as_view({"get": "list"})),
     path("api/instashinkan/<int:pk>/", api_views.InstaShinkanViewSet.as_view({"get": "retrieve"})),
     path('api/login/', login_view, name='login'),
+    path("api/sponsor/", api_views.SponsorViewSet.as_view({"get": "list"})),
+    path("api/sponsor/<int:pk>/", api_views.SponsorViewSet.as_view({"get": "retrieve"})),
 ]
 
 if settings.DEBUG:

@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import HomePhotos, Members, Schedule, ResultPdf, GalleryPhotos, InstaShikan
+from .models import HomePhotos, Members, Schedule, ResultPdf, GalleryPhotos, InstaShikan, Sponsor
 
 
 
@@ -41,6 +41,10 @@ class InstaShikanSerializer(serializers.ModelSerializer):
         model = InstaShikan
         fields = '__all__'
 
+class SponsorSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Sponsor
+        fields = '__all__'
 class ScheduleFileSerializer(serializers.ModelSerializer):
     file_url = serializers.SerializerMethodField()
 

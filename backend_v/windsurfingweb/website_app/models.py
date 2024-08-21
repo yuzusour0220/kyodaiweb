@@ -55,3 +55,12 @@ class Schedule(models.Model):
     
     def __str__(self):
         return self.event_name
+
+class Sponsor(models.Model):
+    name = models.CharField("スポンサー名", max_length=30)
+    url = models.URLField("URL", blank=True)
+    photo = models.ImageField("スポンサーロゴ", upload_to='photos/')
+    description = models.TextField("説明", blank=True)
+    def __str__(self):
+        return self.name
+    

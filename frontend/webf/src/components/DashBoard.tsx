@@ -12,19 +12,19 @@ import {
   Icon,
   GridItem,
   Grid,
-
 } from "@chakra-ui/react";
 import { FiVideo, FiFileText } from "react-icons/fi";
 import Link from "next/link";
-
 
 const DashboardContent: React.FC = () => {
   return (
     <Flex p={8}>
       <VStack align="stretch" width="200px" spacing={4} mr={8}>
-        <Link href=""><Button leftIcon={<Icon as={FiVideo} />}>動画共有</Button></Link>
+        <Link href="https://drive.google.com/drive/folders/1EW2qzRGDpyN33ub_lAOm6wyWwt9PTcMA?usp=drive_link">
+          <Button leftIcon={<Icon as={FiVideo} />}>動画共有</Button>
+        </Link>
         
-        <Link href="https://drive.google.com/drive/folders/16o3MgB9CbQTp8eEBYyYEzMySV2-zV3wm?usp=drive_link">
+        <Link href="https://drive.google.com/drive/folders/1FD4OiQxORq0S0MFJB-dUvGljLa4b9QJZ?usp=drive_link">
           <Button leftIcon={<Icon as={FiFileText} />}>資料共有</Button>
         </Link>
       </VStack>

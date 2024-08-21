@@ -1,6 +1,6 @@
 from rest_framework import viewsets, filters, status
-from .models import Members, HomePhotos, Schedule, GalleryPhotos, InstaShikan
-from .serializers import MembersSerializer, HomePhotoSerializer, ScheduleSerializer, GalleryPhotoSerializer, InstaShikanSerializer
+from .models import Members, HomePhotos, Schedule, GalleryPhotos, InstaShikan, Sponsor
+from .serializers import MembersSerializer, HomePhotoSerializer, ScheduleSerializer, GalleryPhotoSerializer, InstaShikanSerializer, SponsorSerializer
 from django.contrib.auth import authenticate
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
@@ -16,6 +16,10 @@ class HomePhotosViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.OrderingFilter,)
     
 
+class SponsorViewSet(viewsets.ModelViewSet):
+    queryset = Sponsor.objects.all()
+    serializer_class = SponsorSerializer
+    filter_backends = (filters.OrderingFilter,)
     
 class GalleryPhotosViewSet(viewsets.ModelViewSet):
     queryset = GalleryPhotos.objects.all()
